@@ -52,8 +52,10 @@ app.get("/", (req, res) => {
   });
 });
 app.post("/", (req, res) => {
+  console.log(req.body);
+  console.log("post hit");
   const isHealthy = req.body.isHealthy;
-  const patientName = req.body.name;
+  const patientName = req.query.name;
   const user = users.find((user) => user.name === patientName);
   if (!user) {
     return res.status(404).send("User not found");
