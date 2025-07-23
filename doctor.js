@@ -38,12 +38,13 @@ const users = [
 ];
 
 app.get("/", (req, res) => {
-  const userName = req.query.name;
-  const Kidney = users.find((user) => user.name === userName).kidneys;
+  const patientName = req.query.name;
+  const Kidney = users.find((user) => user.name === patientName).kidneys;
   const numberOfKidneys = Kidney.length;
   const healthyKidneys = Kidney.filter((kidney) => kidney.healthy);
   const unhealthyKidneys = Kidney.filter((kidney) => !kidney.healthy);
   res.json({
+    userName: userName,
     numberOfKidneys,
     healthyKidneys: healthyKidneys.length,
     unhealthyKidneys: unhealthyKidneys.length,
