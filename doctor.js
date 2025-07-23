@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
   const healthyKidneys = Kidney.filter((kidney) => kidney.healthy);
   const unhealthyKidneys = Kidney.filter((kidney) => !kidney.healthy);
   res.json({
-    userName: userName,
+    patientName: patientName,
     numberOfKidneys,
     healthyKidneys: healthyKidneys.length,
     unhealthyKidneys: unhealthyKidneys.length,
