@@ -40,9 +40,9 @@ const users = [
 app.get("/", (req, res) => {
   const userName = req.query.name;
   const Kidney = users.find((user) => user.name === userName).kidneys;
-  const numberOfKidneys = sureshKidney.length;
-  const healthyKidneys = sureshKidney.filter((kidney) => kidney.healthy);
-  const unhealthyKidneys = sureshKidney.filter((kidney) => !kidney.healthy);
+  const numberOfKidneys = Kidney.length;
+  const healthyKidneys = Kidney.filter((kidney) => kidney.healthy);
+  const unhealthyKidneys = Kidney.filter((kidney) => !kidney.healthy);
   res.json({
     numberOfKidneys,
     healthyKidneys: healthyKidneys.length,
