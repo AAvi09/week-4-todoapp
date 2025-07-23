@@ -36,6 +36,7 @@ const users = [
     ],
   },
 ];
+app.use(express.json());
 
 app.get("/", (req, res) => {
   const patientName = req.query.name;
@@ -50,7 +51,20 @@ app.get("/", (req, res) => {
     unhealthyKidneys: unhealthyKidneys.length,
   });
 });
-app.post("/", (req, res) => {});
+app.post("/", (req, res) => {
+  const isHealthy = req.body.isHealthy;
+  const patientName = req.body.name;
+  const user = users.find((user) => user.name === patientName);
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+  user.kidneys.push({ healthy: isHealthy });
+  res.json({
+    message: "Kidney status updated successfully",
+    patientName: user.name,
+    kidneys: user.kidneys,
+  });
+});
 app.put("/", (req, res) => {});
 app.delete("/", (req, res) => {});
 
