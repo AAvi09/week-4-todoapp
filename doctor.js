@@ -13,12 +13,41 @@ const users = [
       },
     ],
   },
+  {
+    name: "ramesh",
+    kidneys: [
+      {
+        healthy: true,
+      },
+      {
+        healthy: true,
+      },
+    ],
+  },
+  {
+    name: "mahesh",
+    kidneys: [
+      {
+        healthy: false,
+      },
+      {
+        healthy: false,
+      },
+    ],
+  },
 ];
 
 app.get("/", (req, res) => {
-  const sureshKidney = users.find((user) => user.name === "suresh").kidneys;
+  const userName = req.query.name;
+  const Kidney = users.find((user) => user.name === userName).kidneys;
+  const numberOfKidneys = sureshKidney.length;
   const healthyKidneys = sureshKidney.filter((kidney) => kidney.healthy);
-  res.send(`Suresh has ${healthyKidneys.length} healthy kidneys.`);
+  const unhealthyKidneys = sureshKidney.filter((kidney) => !kidney.healthy);
+  res.json({
+    numberOfKidneys,
+    healthyKidneys: healthyKidneys.length,
+    unhealthyKidneys: unhealthyKidneys.length,
+  });
 });
 app.post("/", (req, res) => {});
 app.put("/", (req, res) => {});
