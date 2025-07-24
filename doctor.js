@@ -76,7 +76,18 @@ app.put("/", (req, res) => {
   user.kidneys.forEach((kidney) => (kidney.healthy = true));
   res.json({});
 });
-app.delete("/", (req, res) => {});
+//remove unhealthy kidneys
+app.delete("/", (req, res) => {
+  const patientName = req.query.name;
+  const user = users.find((user) => user.name === patientName);
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+  user.kidneys = user.kidneys.filter((kidney) => kidney.healthy);
+  res.json({
+    message: "Unhealthy kidneys removed successfully",
+  });
+});
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
