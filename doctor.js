@@ -67,7 +67,15 @@ app.post("/", (req, res) => {
     kidneys: user.kidneys,
   });
 });
-app.put("/", (req, res) => {});
+app.put("/", (req, res) => {
+  const patientName = req.query.name;
+  const user = users.find((user) => user.name === patientName);
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+  user.kidneys.forEach((kidney) => (kidney.healthy = true));
+  res.json({});
+});
 app.delete("/", (req, res) => {});
 
 app.listen(3000, () => {
