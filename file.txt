@@ -1,0 +1,2 @@
+this is so beautiful 
+file reading using fs readfile method just got http-ify
