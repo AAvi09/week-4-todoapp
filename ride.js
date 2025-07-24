@@ -9,16 +9,27 @@ const isOldEnough = (age) => {
   }
 };
 
-app.get("/ride1", (req, res) => {
-  if (isOldEnough(req.query.age)) {
-    res.json({
-      msg: "you have successfully riden the ride1",
-    });
+const isOldEnoughMiddleware = (req, res, age, next) => {
+  const age = parseInt(req.query.age);
+  if (age >= 14) {
+    next();
   } else {
     res.status(411).json({
-      msg: "you are not old enough to ride the ride1",
+      msg: "you are not old enough to ride ",
     });
   }
+};
+
+app.get("/ride2", isOldEnoughMiddleware, (req, res) => {
+  res.json({
+    msg: "you have successfully riden the ride2",
+  });
+});
+
+app.get("/ride1", (req, res) => {
+  res.json({
+    msg: "you have successfully riden the ride1",
+  });
 });
 
 app.listen(3000, () => {
