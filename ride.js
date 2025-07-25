@@ -24,6 +24,10 @@ app.get("/ride1", isOldEnoughMiddleware, (req, res) => {
   });
 });
 
+app.get("/ride3", isOldEnoughMiddleware, (req, res) => {
+  res.json({ msg: "you have successfully riden the ride3" });
+});
+
 app.listen(3000, () => {
   console.log("server is running on port 3000");
 });
