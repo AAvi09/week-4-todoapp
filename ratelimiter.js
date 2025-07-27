@@ -18,9 +18,14 @@ app.use((req, res, next) => {
   if (numberOfRequestsForUser[user]) {
     numberOfRequestsForUser[user]++;
     if (numberOfRequestsForUser[user] > 5) {
-      return res.status(404).json({ msg: "Too many requests" });
+      res.status(404).json({ msg: "Too many requests" });
+    } else {
+      next();
     }
   }
+    else {
+        numberOfRequestsForUser[user] = 1;
+        next();
 });
 app.get("/user", function (req, res) {
   res.status(200).json({ name: "john" });
