@@ -22,16 +22,16 @@
         }
         const data = await response.json();
         console.log(data);
+        const postDiv = (document.getElementById("posts").innerHTML = `
+        <h1>${data.title}</h1>
+        <p>body ${data.body}</p>
+      `);
       } catch (error) {
         console.error(
           "There has been a problem with your fetch operation:",
           error
         );
       }
-      const postDiv = (document.getElementById("posts").innerHTML = `
-        <h1>${data.title}</h1>
-        <p>Completed: ${data.completed}</p>
-      `);
     }
     fetchPosts();
   </script>
