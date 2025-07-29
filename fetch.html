@@ -24,6 +24,8 @@
         console.log(data);
         const postDiv = (document.getElementById("posts").innerHTML = `
         <h1>${data.title}</h1>
+        <p>userId ${data.userId}</p>
+        <p>id ${data.id}</p>
         <p>body ${data.body}</p>
       `);
       } catch (error) {
