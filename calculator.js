@@ -6,19 +6,22 @@ app.use(express.json());
 // Your task is to create a global middleware (app.use) which will
 
 app.get("/sum/:a/:b", (req, res) => {
-  const { a, b } = req.query;
+  const a = req.params.a;
+  const b = req.params.b;
   const sum = parseInt(a) + parseInt(b);
   res.status(200).json({ sum });
 });
 
 app.get("/multiply/:a/:b", (req, res) => {
-  const { a, b } = req.query;
+  const a = req.params.a;
+  const b = req.params.b;
   const product = parseInt(a) * parseInt(b);
   res.status(200).json({ product });
 });
 
 app.get("/divide/:a/:b", (req, res) => {
-  const { a, b } = req.query;
+  const a = req.params.a;
+  const b = req.params.b;
   if (b == 0) {
     return res.json({ error: "cannot divide by zero" });
   }
@@ -27,7 +30,8 @@ app.get("/divide/:a/:b", (req, res) => {
 });
 
 app.get("/subtract/:a/:b", (req, res) => {
-  const { a, b } = req.query;
+  const a = req.params.a;
+  const b = req.params.b;
   const difference = parseInt(a) - parseInt(b);
   res.status(200).json({ difference });
 });
