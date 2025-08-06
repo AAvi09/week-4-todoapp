@@ -20,10 +20,13 @@ app.use(middleware);
 // 2. Log the time when the request was received
 // 3. If the request is a POST request, log the body of the request
 
-app.get("/sum/:a/:b", (req, res) => {
-  const a = req.params.a;
-  const b = req.params.b;
-  const sum = parseInt(a) + parseInt(b);
+app.post("/sum", (req, res) => {
+  const a = Number(req.body.a);
+  const b = Number(req.body.b);
+  const sum = a + b;
+  if (isNaN(sum)) {
+    return res.status(400).json({ error: "Invalid input" });
+  }
   res.status(200).json({ sum });
 });
 
@@ -51,6 +54,15 @@ app.get("/subtract/:a/:b", (req, res) => {
   res.status(200).json({ difference });
 });
 // rate limit the requests from a user to only 5 request per second
+app.get("/addition/:a/:b", (req, res) => {
+  const a = req.params.a;
+  const b = req.params.b;
+  const sum = parseInt(a) + parseInt(b);
+  if (isNaN(sum)) {
+    return res.status(400).json({ error: "Invalid input" });
+  }
+  res.status(200).json({ sum });
+});
 
 app.post("/calculate", (req, res) => {
   const { a, b, operation } = req.body;
@@ -72,6 +84,16 @@ app.post("/calculate", (req, res) => {
         break;
       }
   }
+});
+
+app.post("/name", (req, res) => {
+  const { firstName, lastName } = req.body;
+  if (!firstName || !lastName) {
+    return res
+      .status(400)
+      .json({ error: "First name and last name are required" });
+  }
+  res.status(200).json({ fullName: `${firstName} ${lastName}` });
 });
 
 app.listen(3000, () => {
