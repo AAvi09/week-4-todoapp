@@ -5,11 +5,20 @@ const app = express();
 app.use(express.json());
 // Your task is to create a global middleware (app.use) which will
 function middleware(req, res, next) {
-  console.log("Request received at: " + new Date().toISOString());
+  console.log(
+    "Request received at: " +
+      new Date().toISOString().replace("T", " ").replace("Z", "")
+  );
   console.log("request method: " + req.method);
+  console.log("host name : " + req.hostname);
   console.log("request url: " + req.url);
   next();
 }
+app.use(middleware);
+
+// 1. Log the request method and URL for every request
+// 2. Log the time when the request was received
+// 3. If the request is a POST request, log the body of the request
 
 app.get("/sum/:a/:b", (req, res) => {
   const a = req.params.a;
