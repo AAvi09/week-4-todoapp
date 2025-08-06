@@ -52,6 +52,28 @@ app.get("/subtract/:a/:b", (req, res) => {
 });
 // rate limit the requests from a user to only 5 request per second
 
+app.post("/calculate", (req, res) => {
+  const { a, b, operation } = req.body;
+  let result;
+  switch (operation) {
+    case "add":
+      result = parseInt(a) + parseInt(b);
+      break;
+    case "subtract":
+      result = parseInt(a) - parseInt(b);
+      break;
+    case "multiply":
+      result = parseInt(a) * parseInt(b);
+      break;
+    case "divide":
+      if (b == 0) {
+        return res.json({ error: "cannot divide by zero" });
+
+        break;
+      }
+  }
+});
+
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
