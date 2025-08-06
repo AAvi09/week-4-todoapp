@@ -4,6 +4,12 @@ const app = express();
 
 app.use(express.json());
 // Your task is to create a global middleware (app.use) which will
+function middleware(req, res, next) {
+  console.log("Request received at: " + new Date().toISOString());
+  console.log("request method: " + req.method);
+  console.log("request url: " + req.url);
+  next();
+}
 
 app.get("/sum/:a/:b", (req, res) => {
   const a = req.params.a;
