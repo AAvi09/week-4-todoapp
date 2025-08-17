@@ -11,6 +11,11 @@ function signUpHandler(req, res, next) {
       message: "Username and password are required",
     });
   }
+  // Here you would typically save the user to a database
+  res.status(201).json({
+    message: "User signed up successfully",
+    user: { username },
+  });
 }
 
 app.post("/signup", signUpHandler);
