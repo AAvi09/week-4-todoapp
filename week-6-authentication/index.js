@@ -1,26 +1,18 @@
 const express = require("express");
 
 const app = express();
+app.use(express.json());
 
-function signInHandler(req, res, next) {}
+const users = [];
 
-function signUpHandler(req, res, next) {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({
-      message: "Username and password are required",
-    });
-  }
-  // Here you would typically save the user to a database
-  res.status(201).json({
-    message: "User signed up successfully",
-    user: { username },
-  });
-}
+app.post("/signup", function (req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
 
-app.post("/signup", signUpHandler);
+  users.push({ username, password });
+});
 
-app.post("signin", signInHandler);
+app.post("signin", function (req, res) {});
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
