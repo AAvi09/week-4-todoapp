@@ -85,6 +85,26 @@ app.post("/signup", function (req, res) {
 
   users.push({ username, password });
 
+  if (!username || !password) {
+    return res.status(400).json({
+      error: "Username and password are required",
+    });
+  }
+  const foundUser = users.find(
+    (user) => user.username === username && user.password === password
+  );
+  if (foundUser) {
+    const token = tokengeneration();
+    return res.status(200).json({
+      message: "User signed up successfully",
+      token: token,
+    });
+  } else {
+    return res.status(400).json({
+      error: "User already exists",
+    });
+  }
+
   res.json({
     message: "User signed up successfully",
   });
