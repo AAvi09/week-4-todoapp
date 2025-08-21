@@ -85,6 +85,16 @@ app.post("/signup", function (req, res) {
 
   users.push({ username, password });
 
+  res.json({
+    message: "you are signed in successfully",
+  });
+});
+
+app.post("signin", function (req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  // Check if username and password are provided
   if (!username || !password) {
     return res.status(400).json({
       error: "Username and password are required",
@@ -109,8 +119,6 @@ app.post("/signup", function (req, res) {
     message: "User signed up successfully",
   });
 });
-
-app.post("signin", function (req, res) {});
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
