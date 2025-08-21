@@ -83,14 +83,15 @@ app.post("/signup", function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
 
-  users.push({ username, password });
+  users.push({ username: username, password: password });
+  console.log(users);
 
   res.json({
     message: "you are signed in successfully",
   });
 });
 
-app.post("signin", function (req, res) {
+app.post("/signin", function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -105,6 +106,7 @@ app.post("signin", function (req, res) {
   );
   if (foundUser) {
     const token = tokengeneration();
+    foundUser.token = token; // Store the token in the user object
     return res.status(200).json({
       message: "User signed up successfully",
       token: token,
@@ -115,9 +117,7 @@ app.post("signin", function (req, res) {
     });
   }
 
-  res.json({
-    message: "User signed up successfully",
-  });
+  console.log(users);
 });
 
 app.listen(3000, () => {
