@@ -120,6 +120,20 @@ app.post("/signin", function (req, res) {
   console.log(users);
 });
 
+app.get("/me", function (req, res) {
+  const token = req.headers.token;
+  const foundUser = users.find((user) => user.token === token);
+  if (foundUser) {
+    return res.status(200).json({
+      username: foundUser.username,
+      password: foundUser.password,
+    });
+  }
+  return res.status(401).json({
+    error: "Unauthorized",
+  });
+});
+
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
