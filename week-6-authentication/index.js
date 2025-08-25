@@ -130,7 +130,7 @@ app.get("/me", function (req, res) {
     });
   }
   return res.status(401).json({
-    error: "Unauthorized",
+    error: "user not authenticated",
   });
 });
 
