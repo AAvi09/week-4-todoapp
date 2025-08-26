@@ -1,9 +1,11 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 app.use(express.json());
 
 const users = [];
+const JWT_SECRET = "user-app";
 
 function tokengeneration() {
   // This function should generate a token for the user
@@ -105,7 +107,9 @@ app.post("/signin", function (req, res) {
     (user) => user.username === username && user.password === password
   );
   if (foundUser) {
-    const token = tokengeneration();
+    const token = jwt.sign({ username: foundUser.username }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
     foundUser.token = token; // Store the token in the user object
     return res.status(200).json({
       message: "User signed up successfully",
@@ -122,7 +126,9 @@ app.post("/signin", function (req, res) {
 
 app.get("/me", function (req, res) {
   const token = req.headers.token;
-  const foundUser = users.find((user) => user.token === token);
+  const decodedInfo = jwt.verify(token, JWT_SECRET);
+  const username = decodedInfo.username;
+  let foundUser = null;
   if (foundUser) {
     return res.status(200).json({
       username: foundUser.username,
