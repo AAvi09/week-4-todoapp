@@ -125,10 +125,10 @@ app.post("/signin", function (req, res) {
 });
 
 app.get("/me", function (req, res) {
-  const token = req.headers.token;
+  const token = req.headers.authorization;
   const decodedInfo = jwt.verify(token, JWT_SECRET);
   const username = decodedInfo.username;
-  let foundUser = null;
+  let foundUser = users.find((user) => user.username === username);
   if (foundUser) {
     return res.status(200).json({
       username: foundUser.username,
