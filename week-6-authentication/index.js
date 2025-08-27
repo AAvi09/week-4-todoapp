@@ -112,7 +112,7 @@ app.post("/signin", function (req, res) {
     });
     foundUser.token = token; // Store the token in the user object
     return res.status(200).json({
-      message: "User signed up successfully",
+      message: "User signed in successfully",
       token: token,
     });
   } else {
