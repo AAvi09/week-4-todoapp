@@ -136,7 +136,7 @@ app.get("/me", function (req, res) {
     });
   }
   return res.status(401).json({
-    error: "user not authenticated",
+    error: "user is not authenticated",
   });
 });
 
