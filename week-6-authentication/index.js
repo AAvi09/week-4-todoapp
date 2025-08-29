@@ -107,9 +107,7 @@ app.post("/signin", function (req, res) {
     (user) => user.username === username && user.password === password
   );
   if (foundUser) {
-    const token = jwt.sign({ username: foundUser.username }, JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ username: foundUser.username }, JWT_SECRET);
     foundUser.token = token; // Store the token in the user object
     return res.status(200).json({
       message: "User signed in successfully",
