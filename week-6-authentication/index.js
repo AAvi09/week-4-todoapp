@@ -123,11 +123,11 @@ app.post("/signin", function (req, res) {
 });
 
 app.get("/me", function (req, res) {
-  const token = req.headers.authorization;
+  const token = req.headers.token;
   const decodedInfo = jwt.verify(token, JWT_SECRET);
-  const username = decodedInfo.username;
-  let foundUser = users.find((user) => user.username === username);
-  if (foundUser) {
+  // const username = decodedInfo.username;
+  let foundUser = users.find((user) => user.username === decodedInfo.username);
+  if (username) {
     return res.status(200).json({
       username: foundUser.username,
       password: foundUser.password,
