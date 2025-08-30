@@ -122,10 +122,24 @@ app.post("/signin", function (req, res) {
   console.log(users);
 });
 
-app.get("/me", function (req, res) {
+function auth(req, res, next) {
   const token = req.headers.token;
+  if (!token) {
+    return res.status(401).json({
+      error: "user not authenticated",
+    });
+  }
   const decodedInfo = jwt.verify(token, JWT_SECRET);
-  // const username = decodedInfo.username;
+  if (decodedInfo.username) {
+    next();
+  } else {
+    res.status(401).json({
+      error: "user not authenticated",
+    });
+  }
+}
+
+app.get("/me", auth, function (req, res) {
   let foundUser = users.find((user) => user.username === decodedInfo.username);
   if (username) {
     return res.status(200).json({
