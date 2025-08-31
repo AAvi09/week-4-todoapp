@@ -131,6 +131,7 @@ function auth(req, res, next) {
   }
   const decodedInfo = jwt.verify(token, JWT_SECRET);
   if (decodedInfo.username) {
+    req.username = decodedInfo.username;
     next();
   } else {
     res.status(401).json({
@@ -140,7 +141,7 @@ function auth(req, res, next) {
 }
 
 app.get("/me", auth, function (req, res) {
-  let foundUser = users.find((user) => user.username === decodedInfo.username);
+  let foundUser = users.find((user) => user.username === req.username);
   if (username) {
     return res.status(200).json({
       username: foundUser.username,
