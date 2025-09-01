@@ -135,7 +135,7 @@ function auth(req, res, next) {
     next();
   } else {
     res.status(401).json({
-      error: "user not authenticated",
+      error: "user is not authenticated",
     });
   }
 }
