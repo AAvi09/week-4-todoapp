@@ -89,7 +89,7 @@ app.post("/signup", function (req, res) {
   console.log(users);
 
   res.json({
-    message: "you are signed in successfully",
+    message: "you are signed up successfully",
   });
 });
 
